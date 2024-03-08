@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\AI\Chat;
 use Illuminate\Console\Command;
-use function Laravel\Prompts\{text, spin, info, confirm, alert};
+use function Laravel\Prompts\{text, spin, info, confirm, outro};
 
 class ChatCommand extends Command
 {
@@ -56,10 +56,10 @@ class ChatCommand extends Command
 
             $answer = spin(fn () => $chat->reply($reply), 'Sending request...');
 
-            alert($answer);
+            info($answer);
 
         }
 
-        info('The conversation has ended');
+        outro('The conversation has ended');
     }
 }
