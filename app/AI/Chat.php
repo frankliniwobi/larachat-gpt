@@ -3,7 +3,6 @@
 namespace App\AI;
 
 use OpenAI\Laravel\Facades\OpenAI;
-use Illuminate\Support\Facades\Http;
 
 class Chat
 {
