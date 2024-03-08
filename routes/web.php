@@ -1,48 +1,21 @@
 <?php
 
+use App\AI\Chat;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $messages = [
-        [
-            "role"    => "system",
-            "content" => "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."
-        ],
-        [
-            "role"    => "user",
-            "content" => "Compose a poem that explains the concept of recursion in programming."
-        ]
-    ];
+    $chat = new Chat();
 
-    $response = Http::withToken(config('services.openai.secret'))
-        ->post('https://api.openai.com/v1/chat/completions',
-        [
-            "model"    => "gpt-3.5-turbo",
-            "messages" => $messages,
-        ])->json('choices.0.message.content');
+    $poem = $chat->hasSystemMessage('You are a poetic assistant, skilled in explaining complex programming concepts with creative flair.')
+        ->send('Compose a poem that explains the concept of recursion in programming.');
 
-    $messages[] = [
-        'role' => 'assistant',
-        'content' => $response
-    ];
+    // dd($poem);
 
-    $messages[] = [
-        'role' => 'user',
-        'content' => 'make it about birds'
-    ];
-
-    $response2 = Http::withToken(config('services.openai.secret'))
-        ->post('https://api.openai.com/v1/chat/completions',
-        [
-            "model"    => "gpt-3.5-turbo",
-            "messages" => $messages,
-        ])->json('choices.0.message.content');
-
-        // return $response2;
+    $otherPoem = $chat->reply('make it about the ocean');
 
     return view('welcome', [
-        'response' => $response2
+        'response' => $otherPoem
     ]);
 });
