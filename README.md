@@ -46,6 +46,31 @@ Finally, generate application key:
 php artisan key:generate
 ```
 
+## Usage
+
+### Chat with AI on the terminal
+
+After carrying out the steps above, you
+can then start a chat session by opening 
+your terminal and running the following artisan command
+
+```bash
+php artisan chat
+```
+
+You can also prompt the AI to act or respond a certain way 
+by providing the optional `system` flag. For example, I want my AI 
+to act as a poet
+
+```bash
+php artisan chat --system="You are a professional poet"
+```
+
+Or as a programmer
+```bash
+php artisan chat --system="You are a talented programmer"
+```
+
 ## Configuration
 
 ### OpenAI API Key and Organization
